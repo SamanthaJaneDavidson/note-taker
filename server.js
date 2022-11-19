@@ -5,37 +5,60 @@ const express = require(`express`);
 const path = require(`path`);
 const data = require(`./db/db.json`);
 const fs = require(`fs`)
+const uuid = require(`./helpers/uuid`)
 
 const app = express();
-const PORT = 5001;
+const PORT = process.env.PORT || 5001;
 
 // Middleware 
 app.use(express.static(`public`));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Get 
+// Get route for homepage
 app.get(`/`, (req, res) => {
-    res.sendFile(path.join(__dirname, "public", "index.html"))
+    res.sendFile(path.join(__dirname, `/public/index.html`))
 });
 
+
+// Get route for notes page 
 app.get(`/api/notes`, (req, res) => {
-    res.json(data);
+    res.sendFile(path.join(__dirname, `/public/notes.html`))
 });
 
-// Post
-//has to generate a random ID
+// app.get(`*`, (req, res) => {
+//     res.sendFile(path.join(__dirname, `public/index.html`))
+// });
+
+// Get API routes
+
+// Post for new note
 app.post(`api/notes`, (req, res) => {
-    if (typeof req.body.note !== `undefined`) {
-        data.push({ ...req.body })
-        console.log(note)
-        return fs.writeFile(path.join(__dirname, "./db/db.json", JSON.stringify(data), (err) => {
-            err ? console.error(err) : console.log("Note written")
-            return res.status(200).json(req.body)
-        }));
+
+    const { title, text } = req.body;
+
+    if(req.body) {
+        const newNote = {
+            title,
+            text,
+            note_id: uuid(),
+        };
+        
     }
-        return res.status(500).send("Error");
-    });
+
+});
+
+
+    // if (typeof req.body.note !== `undefined`) {
+    //     data.push({ ...req.body })
+    //     console.log(note)
+    //     return fs.writeFile(path.join(__dirname, "./db/db.json", JSON.stringify(data), (err) => {
+    //         err ? console.error(err) : console.log("Note written")
+    //         return res.status(200).json(req.body)
+    //     }));
+    // }
+    //     return res.status(500).send("Error");
+
 
 
 // Listen
