@@ -12,7 +12,7 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-// Get for homepage 
+// Get for html pages 
 app.get('/', (req, res) => {
     res.send(path.join(__dirname, "public", "index.html"));
 });
@@ -23,6 +23,7 @@ app.get('/notes', (req, res) => {
 
 // Get for notes data 
 app.get('/api/notes', (req, res) => {
+    console.log(data)
     res.json(data);
 });
 
@@ -43,21 +44,22 @@ app.post('/api/notes', (req, res) => {
             body: newNote,
         };
 
-        // // if {
-        //     data.push({ ...req.body })
+            data.push({ ...req.body })
             console.log(newNote)
             return fs.writeFile(path.join(__dirname, "./db/db.json"), JSON.stringify(data), (err) => {
                 err ? console.error(err) : console.log("Note written")
                 return res.status(200).json(response)
             });
 
-        // } else {
-        //     res.status(500).json(`Error posting note`);
-        // }
-    }
-});
+        } else {
+            res.status(500).json(`Error posting note`);
+        }
+    });
 
-// Add delete app
+// Delete for notes data
+
+
+
 
 // Listen 
 app.listen(PORT, () => {
