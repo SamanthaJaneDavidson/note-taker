@@ -57,10 +57,9 @@ app.post('/api/notes', (req, res) => {
     });
 
 // Delete for notes data
-app.delete('/api/notes/${id}', (req, res) => {
-    
-})
-
+app.delete(`/api/notes/:id`, (req, res) => {
+    res.send("Note deleted");
+});
 
 
 // Listen 
