@@ -5,8 +5,9 @@ The goal of this project was to create a note taking application. Notes can be a
 
 Technologies used: HTML, CSS, JavaScript, Node.js, Express.js, Heroku
 
-## Site Image
-![Note Taker](./assets/images/TBA)
+## Site Images
+![Note Taker](./assets/images/homepage.png)
+![Note Taker](./assets/images/notes_page.png)
 
 To visit the site click [here](TBA). 
 
