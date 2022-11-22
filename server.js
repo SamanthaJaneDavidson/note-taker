@@ -14,11 +14,11 @@ app.use(express.urlencoded({ extended: true }));
 
 // Get for html pages 
 app.get('/', (req, res) => {
-    res.send(path.join(__dirname, "public", "index.html"));
+    res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
 app.get('/notes', (req, res) => {
-    res.send(path.join(__dirname, "public", "notes.html"));
+    res.sendFile(path.join(__dirname, "public", "notes.html"));
 });
 
 // Get for notes data 
@@ -57,7 +57,9 @@ app.post('/api/notes', (req, res) => {
     });
 
 // Delete for notes data
-
+app.delete('/api/notes/${id}', (req, res) => {
+    
+})
 
 
 
