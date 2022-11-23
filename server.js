@@ -39,12 +39,13 @@ app.post('/api/notes', (req, res) => {
             id: uuid(),
         };
 
+
         const response = {
             status: 'Note added',
             body: newNote,
         };
 
-            data.push({ ...req.body })
+            data.push(newNote)
             console.log(newNote)
             return fs.writeFile(path.join(__dirname, "./db/db.json"), JSON.stringify(data), (err) => {
                 err ? console.error(err) : console.log("Note written")
@@ -59,6 +60,16 @@ app.post('/api/notes', (req, res) => {
 // Delete for notes data
 app.delete(`/api/notes/:id`, (req, res) => {
     res.send("Note deleted");
+    console.log(typeof data)
+    console.log(data)
+    var updateNotes = data.filter((note) => note.id != req.params.id)
+
+    console.log("testing delete", updateNotes)
+    
+    return fs.writeFile(path.join(__dirname, "./db/db.json"), JSON.stringify(updateNotes), (err) => {
+        err ? console.error(err) : console.log("Note deleted")
+        return updateNotes
+    });
 });
 
 
